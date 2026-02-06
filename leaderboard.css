@@ -1,0 +1,455 @@
+/* ========================================
+   LEADERBOARD SPECIFIC STYLES
+======================================== */
+
+/* Leaderboard Hero Section */
+.leaderboard-hero {
+    padding: 120px 0 80px;
+    background: linear-gradient(180deg, rgba(0, 255, 133, 0.05) 0%, transparent 100%);
+    text-align: center;
+    position: relative;
+}
+
+.trophy-icons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 30px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.trophy-icon {
+    color: var(--neon-green);
+    filter: drop-shadow(0 0 20px rgba(0, 255, 133, 0.5));
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.leaderboard-title {
+    font-size: 72px;
+    font-weight: 900;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 40px;
+    text-shadow: 0 0 30px rgba(0, 255, 133, 0.5);
+}
+
+.platform-logo {
+    margin-bottom: 40px;
+}
+
+.platform-logo-link {
+    display: inline-block;
+    transition: var(--transition-base);
+}
+
+.platform-logo-link:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 20px rgba(0, 255, 133, 0.5));
+}
+
+.platform-logo-img {
+    height: 150px;
+    width: auto;
+    max-width: 500px;
+}
+
+/* Prize Information */
+.prize-info {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    padding: 32px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(0, 255, 133, 0.2);
+    border-radius: 12px;
+}
+
+.prize-payout {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 12px;
+}
+
+.prize-payout strong {
+    color: var(--neon-green);
+}
+
+.prize-total {
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--neon-green);
+    margin-bottom: 16px;
+    text-shadow: 0 0 20px rgba(0, 255, 133, 0.5);
+}
+
+.prize-highroller {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.prize-highroller strong {
+    color: var(--neon-green);
+}
+
+.prize-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.prize-item {
+    padding: 12px;
+    background: rgba(0, 255, 133, 0.05);
+    border: 1px solid rgba(0, 255, 133, 0.1);
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+}
+
+/* Leaderboard Tabs */
+.leaderboard-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.tab-link {
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(0, 255, 133, 0.3);
+    border-radius: 4px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    transition: var(--transition-base);
+}
+
+.tab-link:hover {
+    background: rgba(0, 255, 133, 0.1);
+    border-color: var(--neon-green);
+    transform: translateY(-2px);
+}
+
+.tab-link.active {
+    background: var(--neon-green);
+    color: var(--dark-bg);
+    border-color: var(--neon-green);
+}
+
+.btn-join {
+    font-size: 18px;
+    padding: 18px 48px;
+    margin-top: 20px;
+}
+
+/* Leaderboard Content */
+.leaderboard-content {
+    padding: 80px 0;
+    background: var(--background);
+}
+
+.coming-soon-message {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.coming-soon-message h2 {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--neon-green);
+    margin-bottom: 16px;
+}
+
+.coming-soon-message p {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Leaderboard Grid */
+.leaderboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Rank Cards */
+.rank-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(0, 255, 133, 0.1);
+    border-radius: 12px;
+    padding: 32px;
+    position: relative;
+    transition: var(--transition-base);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-height: 120px;
+}
+
+.rank-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--neon-green);
+    box-shadow: 0 0 30px rgba(0, 255, 133, 0.2);
+}
+
+.rank-number {
+    font-size: 48px;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.3);
+    min-width: 60px;
+    text-align: center;
+}
+
+.rank-crown {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 32px;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+}
+
+.rank-info {
+    flex: 1;
+}
+
+.rank-placeholder {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+    text-align: center;
+}
+
+/* Top 3 Special Styling */
+.rank-card.rank-1 {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+    border-color: rgba(255, 215, 0, 0.3);
+}
+
+.rank-card.rank-1:hover {
+    border-color: #FFD700;
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+}
+
+.rank-card.rank-1 .rank-number {
+    color: #FFD700;
+}
+
+.rank-card.rank-2 {
+    background: linear-gradient(135deg, rgba(192, 192, 192, 0.1) 0%, rgba(192, 192, 192, 0.05) 100%);
+    border-color: rgba(192, 192, 192, 0.3);
+}
+
+.rank-card.rank-2:hover {
+    border-color: #C0C0C0;
+    box-shadow: 0 0 40px rgba(192, 192, 192, 0.3);
+}
+
+.rank-card.rank-2 .rank-number {
+    color: #C0C0C0;
+}
+
+.rank-card.rank-3 {
+    background: linear-gradient(135deg, rgba(205, 127, 50, 0.1) 0%, rgba(205, 127, 50, 0.05) 100%);
+    border-color: rgba(205, 127, 50, 0.3);
+}
+
+.rank-card.rank-3:hover {
+    border-color: #CD7F32;
+    box-shadow: 0 0 40px rgba(205, 127, 50, 0.3);
+}
+
+.rank-card.rank-3 .rank-number {
+    color: #CD7F32;
+}
+
+/* Navigation Dropdown */
+.nav-dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    cursor: pointer;
+    position: relative;
+    padding-right: 20px;
+}
+
+.dropdown-toggle::after {
+    content: '▼';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    transition: transform 0.3s ease;
+}
+
+.nav-dropdown:hover .dropdown-toggle::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: rgba(10, 15, 20, 0.98);
+    border: 2px solid var(--neon-green);
+    border-radius: 8px;
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    margin-top: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.nav-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: block;
+    padding: 12px 20px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: var(--transition-base);
+    border-bottom: 1px solid rgba(0, 255, 133, 0.1);
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background: rgba(0, 255, 133, 0.1);
+    color: var(--neon-green);
+    padding-left: 24px;
+}
+
+.dropdown-item.active {
+    background: rgba(0, 255, 133, 0.2);
+    color: var(--neon-green);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .leaderboard-title {
+        font-size: 48px;
+    }
+
+    .platform-logo-img {
+        height: 100px;
+        max-width: 350px;
+    }
+
+    .prize-info {
+        padding: 24px;
+    }
+
+    .prize-total {
+        font-size: 28px;
+    }
+
+    .prize-list {
+        grid-template-columns: 1fr;
+    }
+
+    .platform-name {
+        font-size: 24px;
+        padding: 12px 24px;
+    }
+
+    .coming-soon-message h2 {
+        font-size: 32px;
+    }
+
+    .leaderboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .rank-card {
+        padding: 24px;
+    }
+
+    .rank-number {
+        font-size: 36px;
+        min-width: 50px;
+    }
+
+    .dropdown-menu {
+        left: auto;
+        right: 0;
+    }
+
+    .leaderboard-hero {
+        padding: 80px 0 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .leaderboard-title {
+        font-size: 36px;
+    }
+
+    .platform-logo-img {
+        height: 70px;
+        max-width: 280px;
+    }
+
+    .prize-info {
+        padding: 20px;
+    }
+
+    .prize-total {
+        font-size: 24px;
+    }
+
+    .prize-payout,
+    .prize-highroller {
+        font-size: 12px;
+    }
+
+    .platform-name {
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+
+    .trophy-icons {
+        gap: 20px;
+    }
+
+    .trophy-icon {
+        width: 40px;
+        height: 40px;
+    }
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raffle Admin - GambitStyll</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="leaderboard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="logo.png" alt="GambitStyll Logo">
+                </a>
+                <nav class="nav" id="nav">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="monthly-raffle.html" class="nav-link">Monthly Raffle</a>
+                </nav>
+                <div class="social-links"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Gate -->
+    <section class="admin-login" id="admin-login">
+        <div class="container">
+            <div class="admin-login-card">
+                <div class="admin-login-icon">🔐</div>
+                <h1 class="admin-login-title">Admin Dashboard</h1>
+                <p class="admin-login-subtitle">Enter the admin password to continue</p>
+                <div class="admin-form-group">
+                    <input type="text" id="admin-username" class="admin-input" placeholder="Username…"
+                        autocomplete="off" spellcheck="false">
+                    <input type="password" id="admin-password" class="admin-input" placeholder="Password…"
+                        autocomplete="off" style="margin-top: 12px;">
+                    <button id="admin-login-btn" class="btn btn-primary admin-login-btn">Access Dashboard</button>
+                </div>
+                <p class="admin-error" id="admin-error"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Dashboard (hidden until login) -->
+    <section class="admin-dashboard" id="admin-dashboard" style="display: none;">
+        <div class="container">
+            <div class="admin-header-bar">
+                <div>
+                    <h1 class="admin-title">🎟️ Raffle Ticket Manager</h1>
+                    <span class="admin-welcome" id="admin-welcome"></span>
+                </div>
+                <button id="admin-logout-btn" class="btn btn-secondary admin-logout-btn">Logout</button>
+            </div>
+
+            <!-- Stats -->
+            <div class="admin-stats">
+                <div class="admin-stat-card">
+                    <div class="admin-stat-number" id="admin-total-tickets">0</div>
+                    <div class="admin-stat-label">Total Tickets</div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-number" id="admin-total-users">0</div>
+                    <div class="admin-stat-label">Total Users</div>
+                </div>
+            </div>
+
+            <!-- Add Tickets Form -->
+            <div class="admin-card">
+                <h2 class="admin-card-title">Add / Update User</h2>
+                <div class="admin-add-form">
+                    <div class="admin-form-row">
+                        <div class="admin-form-group">
+                            <label class="admin-label" for="ticket-username">Username</label>
+                            <input type="text" id="ticket-username" class="admin-input" placeholder="Enter username…">
+                        </div>
+                        <div class="admin-form-group">
+                            <label class="admin-label" for="ticket-wagered">Wagered ($)</label>
+                            <input type="number" id="ticket-wagered" class="admin-input"
+                                placeholder="Total wagered amount…" min="0" step="100">
+                        </div>
+                        <div class="admin-form-group">
+                            <label class="admin-label" for="ticket-bonus">Bonus Tickets</label>
+                            <input type="number" id="ticket-bonus" class="admin-input" placeholder="Additional tickets…"
+                                min="0" value="0">
+                        </div>
+                        <button id="add-ticket-btn" class="btn btn-primary admin-add-btn">Save Entry</button>
+                    </div>
+                    <div class="admin-form-preview" id="ticket-preview-wrapper">
+                        <span class="admin-form-preview-label">Preview:</span>
+                        <span class="admin-form-preview-value" id="ticket-preview">0 (wager) + 0 (bonus) = 0 total
+                            tickets</span>
+                    </div>
+                    <p class="admin-form-hint">If the username already exists, their data will be replaced with the new
+                        values. Total tickets = floor(wagered / $1,000) + bonus tickets.</p>
+                </div>
+            </div>
+
+            <!-- Ticket List -->
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h2 class="admin-card-title">Ticket List</h2>
+                    <div style="display: flex; gap: 12px;">
+                        <button id="copy-list-btn" class="btn btn-secondary admin-copy-btn">Copy List</button>
+                        <button id="clear-all-btn" class="btn btn-danger admin-clear-btn">Clear All</button>
+                    </div>
+                </div>
+                <div class="admin-table-wrapper">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Username</th>
+                                <th>Wagered</th>
+                                <th>Wager Tickets</th>
+                                <th>Bonus Tickets</th>
+                                <th>Total Tickets</th>
+                                <th>Added By</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-ticket-tbody">
+                            <tr>
+                                <td colspan="8" class="admin-table-empty">Loading…</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 GambitStill. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="raffle.js"></script>
+</body>
+
+</html>

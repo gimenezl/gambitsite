@@ -16,8 +16,8 @@ if (mobileMenuToggle) {
 const navLinks = document.querySelectorAll('.nav-link');
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
-        nav.classList.remove('active');
-        mobileMenuToggle.classList.remove('active');
+        if (nav) nav.classList.remove('active');
+        if (mobileMenuToggle) mobileMenuToggle.classList.remove('active');
     });
 });
 
@@ -449,28 +449,5 @@ window.addEventListener('load', () => {
     }, 200);
 });
 
-// ========================================
-// RANDOM LEADERBOARD REDIRECT
-// ========================================
-// Add click handler to any element with class "random-leaderboard"
-document.addEventListener('DOMContentLoaded', () => {
-    const randomLeaderboardButtons = document.querySelectorAll('.random-leaderboard');
 
-    randomLeaderboardButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
 
-            // Random selection between Gamdom and Fortune Box
-            const leaderboards = [
-                'leaderboard-gamdom.html',
-                'leaderboard-fortunebox.html'
-            ];
-
-            const randomIndex = Math.floor(Math.random() * leaderboards.length);
-            const selectedLeaderboard = leaderboards[randomIndex];
-
-            // Redirect to the selected leaderboard
-            window.location.href = selectedLeaderboard;
-        });
-    });
-});

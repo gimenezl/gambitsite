@@ -202,7 +202,7 @@ body {
 }
 
 .social-link-text {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 900;
     text-decoration: none;
 }
@@ -486,27 +486,62 @@ body {
 ======================================== */
 .leaderboard {
     padding: var(--section-padding) 0;
-    background: var(--background);
+    background: radial-gradient(ellipse at center, rgba(0, 163, 114, 0.08) 0%, var(--background) 70%);
+    position: relative;
+    overflow: hidden;
+}
+
+.leaderboard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150%;
+    height: 100%;
+    background: radial-gradient(ellipse at top, rgba(0, 255, 133, 0.05) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .leaderboard-title-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 32px;
+    gap: 48px;
     margin-bottom: 80px;
+    position: relative;
+}
+
+.leaderboard-title-wrapper .section-title {
+    background: linear-gradient(135deg, #ffffff 0%, var(--neon-green) 50%, #00FF85 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 30px rgba(0, 255, 133, 0.4));
+    letter-spacing: 0.15em;
+    position: relative;
 }
 
 .trophy {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     object-fit: contain;
-    filter: drop-shadow(0 4px 8px rgba(0, 163, 114, 0.3));
-    animation: float 4s infinite ease-in-out;
+    filter: drop-shadow(0 8px 16px rgba(0, 255, 133, 0.5)) drop-shadow(0 0 40px rgba(0, 255, 133, 0.3));
+    animation: trophyFloat 4s infinite ease-in-out;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.trophy:hover {
+    filter: drop-shadow(0 12px 24px rgba(0, 255, 133, 0.7)) drop-shadow(0 0 60px rgba(0, 255, 133, 0.6));
+    transform: translateY(-10px) scale(1.15) rotate(15deg);
 }
 
 .trophy-left {
     animation-delay: 0s;
+}
+
+.trophy-left:hover {
+    transform: translateY(-10px) scale(1.15) rotate(-15deg);
 }
 
 .trophy-right {
@@ -514,20 +549,43 @@ body {
     transform: scaleX(-1);
 }
 
+.trophy-right:hover {
+    transform: scaleX(-1) translateY(-10px) scale(1.15) rotate(-15deg);
+}
+
+.raffle-home-subtitle {
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 48px;
+    line-height: 1.6;
+    position: relative;
+}
+
+.raffle-home-subtitle strong {
+    color: #fff;
+}
+
 .leaderboard-logos {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 80px;
+    gap: 60px;
     flex-wrap: wrap;
     margin-bottom: 80px;
+    position: relative;
 }
 
 .leaderboard-logo {
-    width: 400px;
-    height: 150px;
-    display: block;
-    transition: var(--transition-base);
+    width: 380px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 20px;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .leaderboard-logo img {
@@ -535,16 +593,19 @@ body {
     height: 100%;
     object-fit: contain;
     mix-blend-mode: screen;
-    opacity: 0.9;
-    transition: var(--transition-base);
+    opacity: 0.85;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    filter: drop-shadow(0 4px 12px rgba(0, 255, 133, 0.2));
 }
 
 .leaderboard-logo:hover {
-    transform: scale(1.08);
+    transform: translateY(-20px) scale(1.12);
 }
 
 .leaderboard-logo:hover img {
     opacity: 1;
+    filter: drop-shadow(0 12px 40px rgba(0, 255, 133, 0.8)) drop-shadow(0 0 60px rgba(0, 255, 133, 0.6));
+    transform: scale(1.05);
 }
 
 .leaderboard-cta {
@@ -552,15 +613,71 @@ body {
 }
 
 .btn-leaderboard {
-    background: linear-gradient(135deg, var(--dark-green) 0%, var(--darker-green) 100%);
-    color: white;
+    position: relative;
+    background: linear-gradient(270deg, var(--neon-green), var(--dark-green), var(--neon-green), var(--dark-green));
+    background-size: 400% 400%;
+    color: var(--dark-forest);
     padding: 32px 96px;
     font-size: clamp(20px, 3vw, 32px);
-    box-shadow: 0 4px 20px rgba(0, 163, 114, 0.4);
+    font-weight: 900;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 255, 133, 0.6),
+        0 0 60px rgba(0, 255, 133, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: none;
+    overflow: visible;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation: gradientShift 3s ease infinite;
+}
+
+.btn-leaderboard::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(270deg, var(--neon-green), transparent, var(--neon-green));
+    background-size: 400% 400%;
+    border-radius: 4px;
+    opacity: 0;
+    z-index: -1;
+    filter: blur(20px);
+    transition: opacity 0.4s ease;
+    animation: gradientShift 3s ease infinite;
+}
+
+.btn-leaderboard::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(270deg, var(--neon-green), var(--dark-green), var(--neon-green));
+    background-size: 400% 400%;
+    border-radius: 4px;
+    z-index: -2;
+    filter: blur(10px);
+    opacity: 0.7;
+    animation: gradientShift 3s ease infinite;
 }
 
 .btn-leaderboard:hover {
-    box-shadow: 0 0 30px rgba(0, 163, 114, 0.5);
+    transform: translateY(-6px) scale(1.08);
+    box-shadow: 0 20px 60px rgba(0, 255, 133, 0.8),
+        0 0 100px rgba(0, 255, 133, 0.6),
+        0 0 140px rgba(0, 255, 133, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    animation-duration: 1.5s;
+}
+
+.btn-leaderboard:hover::before {
+    opacity: 1;
+    animation-duration: 1.5s;
+}
+
+.btn-leaderboard:hover::after {
+    opacity: 1;
+    animation-duration: 1.5s;
+}
+
+.btn-leaderboard:active {
+    transform: translateY(-3px) scale(1.05);
 }
 
 /* ========================================
@@ -875,6 +992,48 @@ body {
     50% {
         opacity: 0.5;
         transform: scale(1.05);
+    }
+}
+
+@keyframes trophyFloat {
+
+    0%,
+    100% {
+        transform: translateY(0px) scale(1);
+    }
+
+    25% {
+        transform: translateY(-15px) scale(1.02) rotate(2deg);
+    }
+
+    50% {
+        transform: translateY(-25px) scale(1.05) rotate(0deg);
+    }
+
+    75% {
+        transform: translateY(-15px) scale(1.02) rotate(-2deg);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes gradientShift {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
     }
 }
 

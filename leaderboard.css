@@ -327,6 +327,60 @@
     color: var(--neon-green);
 }
 
+/* Month Selector Styles */
+.month-selector-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.month-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.month-select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 133, 0.2);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.month-select:hover,
+.month-select:focus {
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 15px rgba(0, 255, 133, 0.2);
+}
+
+.month-select option {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+.current-month-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+    border-radius: 100px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(0, 255, 133, 0.2);
+}
+
 /* ========================================
    TICKET COUNTER SECTION
 ======================================== */
@@ -632,6 +686,11 @@
     color: rgba(255, 255, 255, 0.3);
 }
 
+.admin-input option {
+    background: #1a1a1a;
+    color: #fff;
+}
+
 .admin-login-btn {
     width: 100%;
     margin-top: 16px;
@@ -844,6 +903,7 @@
 .admin-table {
     width: 100%;
     border-collapse: collapse;
+    background: rgba(10, 10, 10, 0.3);
 }
 
 .admin-table th {
@@ -862,6 +922,11 @@
     font-size: 14px;
     color: rgba(255, 255, 255, 0.8);
     border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.admin-table td strong {
+    color: #fff;
+    font-weight: 700;
 }
 
 .admin-table tr:hover td {

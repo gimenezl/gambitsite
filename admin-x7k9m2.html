@@ -106,8 +106,14 @@
             <div class="admin-card">
                 <div class="admin-card-header">
                     <h2 class="admin-card-title">Ticket List</h2>
-                    <div style="display: flex; gap: 12px;">
-                        <button id="copy-list-btn" class="btn btn-secondary admin-copy-btn">Copy List</button>
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <select id="admin-month-filter" class="admin-input"
+                            style="width: auto; margin: 0; padding: 8px 16px;">
+                            <option value="2026-02">February 2026</option>
+                            <option value="2026-03">March 2026</option>
+                            <option value="2026-04">April 2026</option>
+                        </select>
+                        <button id="copy-list-btn" class="btn btn-secondary admin-copy-btn">Copy Expanded List</button>
                         <button id="clear-all-btn" class="btn btn-danger admin-clear-btn">Clear All</button>
                     </div>
                 </div>

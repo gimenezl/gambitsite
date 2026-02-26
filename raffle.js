@@ -32,6 +32,39 @@ function calculateTickets(wagered, bonusTickets) {
 }
 
 // ========================================
+// MONTH HELPERS
+// ========================================
+function getCurrentMonthKey() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    return `${year}-${month}`;
+}
+
+function formatMonthLabel(key) {
+    if (!key) return '';
+    const [year, month] = key.split('-');
+    const months = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    return `${months[parseInt(month) - 1]} ${year}`;
+}
+
+function getPreviousMonthKey() {
+    const now = new Date();
+    let year = now.getFullYear();
+    let month = now.getMonth(); // Previous month (0-indexed)
+
+    if (month === 0) { // If January, go to December of previous year
+        month = 12;
+        year -= 1;
+    }
+
+    return `${year}-${String(month).padStart(2, '0')}`;
+}
+
+// ========================================
 // MONTHLY COUNTDOWN TIMER
 // ========================================
 function initCountdown() {
@@ -79,17 +112,28 @@ function initCountdown() {
 // ========================================
 // PUBLIC RAFFLE PAGE LOGIC
 // ========================================
-async function loadPublicTickets() {
+let currentPublicMonth = getCurrentMonthKey();
+
+async function loadPublicTickets(monthKey) {
     const totalEl = document.getElementById('total-tickets');
     const listEl = document.getElementById('ticket-list');
+    const monthDisplayEl = document.getElementById('current-month-display');
 
     if (!totalEl || !listEl) return;
+
+    const targetMonth = monthKey || getCurrentMonthKey();
+    currentPublicMonth = targetMonth;
+
+    if (monthDisplayEl) {
+        monthDisplayEl.textContent = formatMonthLabel(targetMonth);
+    }
 
     try {
         initSupabase();
         const { data, error } = await supabaseClient
             .from('raffle_tickets')
             .select('*')
+            .eq('raffle_month', targetMonth)
             .order('tickets', { ascending: false });
 
         if (error) throw error;
@@ -238,6 +282,16 @@ function initAdmin() {
         // Show logged-in admin name
         const welcomeEl = document.getElementById('admin-welcome');
         if (welcomeEl) welcomeEl.textContent = `Logged in as: ${getLoggedAdmin()}`;
+
+        // Init month selector in admin
+        const adminMonthSelect = document.getElementById('admin-month-filter');
+        if (adminMonthSelect) {
+            const currentMonth = getCurrentMonthKey();
+            // Optional: Populate with more months if needed, but for now we'll just set it
+            adminMonthSelect.value = currentMonth;
+            adminMonthSelect.addEventListener('change', () => loadAdminTickets());
+        }
+
         loadAdminTickets();
     }
 }
@@ -246,14 +300,18 @@ async function loadAdminTickets() {
     const tbody = document.getElementById('admin-ticket-tbody');
     const totalTicketsEl = document.getElementById('admin-total-tickets');
     const totalUsersEl = document.getElementById('admin-total-users');
+    const monthFilter = document.getElementById('admin-month-filter');
 
     if (!tbody) return;
+
+    const targetMonth = monthFilter ? monthFilter.value : getCurrentMonthKey();
 
     try {
         initSupabase();
         const { data, error } = await supabaseClient
             .from('raffle_tickets')
             .select('*')
+            .eq('raffle_month', targetMonth)
             .order('tickets', { ascending: false });
 
         if (error) throw error;
@@ -305,6 +363,8 @@ async function addTickets() {
     const wagered = parseFloat(wageredInput.value) || 0;
     const bonusTickets = parseInt(bonusInput.value) || 0;
     const totalTickets = calculateTickets(wagered, bonusTickets);
+    const monthFilter = document.getElementById('admin-month-filter');
+    const raffleMonth = monthFilter ? monthFilter.value : getCurrentMonthKey();
 
     if (!username) {
         alert('Please enter a valid username.');
@@ -317,18 +377,19 @@ async function addTickets() {
     }
 
     // Confirmation dialog
-    if (!confirm(`Add entry for "${username}"?\n\nWagered: $${wagered.toLocaleString()}\nBonus Tickets: ${bonusTickets}\nTotal Tickets: ${totalTickets}\n\nThis will update the raffle entries.`)) {
+    if (!confirm(`Add entry for "${username}" to ${formatMonthLabel(raffleMonth)}?\n\nWagered: $${wagered.toLocaleString()}\nBonus Tickets: ${bonusTickets}\nTotal Tickets: ${totalTickets}\n\nThis will update the raffle entries.`)) {
         return;
     }
 
     try {
         initSupabase();
 
-        // Check if user already exists
+        // Check if user already exists in THIS month
         const { data: existing } = await supabaseClient
             .from('raffle_tickets')
             .select('*')
             .eq('username', username)
+            .eq('raffle_month', raffleMonth)
             .single();
 
         if (existing) {
@@ -343,6 +404,7 @@ async function addTickets() {
                     wagered: newWagered,
                     bonus_tickets: newBonus,
                     tickets: newTotal,
+                    raffle_month: raffleMonth,
                     added_by: getLoggedAdmin(),
                     updated_at: new Date().toISOString()
                 })
@@ -358,6 +420,7 @@ async function addTickets() {
                     wagered,
                     bonus_tickets: bonusTickets,
                     tickets: totalTickets,
+                    raffle_month: raffleMonth,
                     added_by: getLoggedAdmin()
                 });
 
@@ -453,10 +516,13 @@ async function clearAllTickets() {
 
     try {
         initSupabase();
+        const monthFilter = document.getElementById('admin-month-filter');
+        const targetMonth = monthFilter ? monthFilter.value : getCurrentMonthKey();
+
         const { error } = await supabaseClient
             .from('raffle_tickets')
             .delete()
-            .neq('id', 0); // Delete all rows
+            .eq('raffle_month', targetMonth);
 
         if (error) throw error;
         loadAdminTickets();
@@ -470,9 +536,13 @@ async function clearAllTickets() {
 async function copyExpandedList() {
     try {
         initSupabase();
+        const monthFilter = document.getElementById('admin-month-filter');
+        const targetMonth = monthFilter ? monthFilter.value : getCurrentMonthKey();
+
         const { data, error } = await supabaseClient
             .from('raffle_tickets')
             .select('*')
+            .eq('raffle_month', targetMonth)
             .order('username', { ascending: true });
 
         if (error) throw error;
@@ -510,4 +580,22 @@ document.addEventListener('DOMContentLoaded', () => {
     loadPublicTickets();
     initCountdown();
     initAdmin();
+
+    // Init month selector in public raffle page
+    const publicMonthSelect = document.getElementById('public-month-select');
+    if (publicMonthSelect) {
+        const currentMonth = getCurrentMonthKey();
+        const prevMonth = getPreviousMonthKey();
+
+        // Populate options dynamically
+        publicMonthSelect.innerHTML = `
+            <option value="${currentMonth}">Current Month (${formatMonthLabel(currentMonth)})</option>
+            <option value="${prevMonth}">Previous Month (${formatMonthLabel(prevMonth)})</option>
+        `;
+
+        publicMonthSelect.value = currentMonth;
+        publicMonthSelect.addEventListener('change', (e) => {
+            loadPublicTickets(e.target.value);
+        });
+    }
 });

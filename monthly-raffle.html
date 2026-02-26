@@ -235,6 +235,17 @@
                     <span>Wagered</span>
                     <span>Tickets</span>
                 </div>
+                <div class="raffle-info-note">
+                    <div class="month-selector-wrapper">
+                        <label for="public-month-select" class="month-label">Viewing entries for:</label>
+                        <select id="public-month-select" class="month-select">
+                            <!-- Dynamically populated by raffle.js -->
+                        </select>
+                    </div>
+                    <div id="current-month-display" class="current-month-badge">
+                        <!-- Loaded by JS -->
+                    </div>
+                </div>
                 <div class="ticket-list" id="ticket-list">
                     <div class="ticket-list-empty">Loading entries…</div>
                 </div>
